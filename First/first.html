@@ -1,0 +1,67 @@
+<html>
+    
+    <head>
+    
+    <title>데이터 출력</title>
+    
+    </head>
+    
+    <body>
+    
+    Mysite Page!!
+    
+    <%
+    
+     Set db = server.CreateObject("ADODB.Connection")  
+    
+     db.open = "dsn=mysite;uid=mysite;pwd=123;"  
+    
+                                            //dsn=”DSN이름” uid=”DB아이디” pwd=”DB암호”
+    
+    if db.state=1 then
+    
+       response.write "데이터베이스 연결 성공 <br><br>"
+    
+     else
+    
+       response.write "데이터베이스 연결 실패"
+    
+     end if
+    
+     
+    
+      dim rs
+    
+      dim sql
+    
+      sql = "select * from myboard1"                       // myboard1 테이블 검색
+    
+      set rs = Server.CreateObject("ADODB.Recordset")      
+    
+      rs.open sql, db
+    
+      do Until rs.EOF
+    
+    response.write rs("num_idx") & " " & rs("name") & " " & rs("pwd") & " " & rs("mail") &
+    
+     rs("home") & rs("title") & rs("texta") & rs("readnum") &  " "& rs("writeday") &  "<br>" 
+    
+    //출력 하려는 스키마
+    
+      rs.MoveNext
+    
+      Loop
+    
+      rs.close
+    
+      set rs=Nothing
+    
+      db.close
+    
+      set db = nothing
+    
+    %>
+    
+    </body>
+    
+    </html>
